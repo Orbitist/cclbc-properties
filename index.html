@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset='utf-8' />
+      <title>Westfield Economic Development Projects</title>
+      <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+      <script defer src="https://pro.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-d84LGg2pm9KhR4mCAs3N29GQ4OYNy+K+FBHX8WhimHpPm86c839++MDABegrZ3gn" crossorigin="anonymous"></script>
+
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+  		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+  		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+
+      <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>
+      <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' />
+
+      <link rel="stylesheet" href="css/odometer-theme-default.css" />
+      <script src="js/odometer.min.js"></script>
+
+      <!-- Slick Plugin -->
+      <link rel="stylesheet" type="text/css" href="plugins/slick/slick.css"/>
+      <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css"/>
+
+      <link href='css/spinner.css' rel='stylesheet' />
+      <link href='css/toggles.css' rel='stylesheet' />
+      <link href='css/orbitist-tiles-v2.css' rel='stylesheet' />
+      <link href='css/drawer.css' rel='stylesheet' />
+  		<link href='css/style.css' rel='stylesheet' />
+  </head>
+  <body>
+    <div id='map'></div>
+
+    <div id="toggleFilters" class="btn btn-sm btn-secondary"><i class="fal fa-sliders-h-square"></i> Filters</div>
+    <div id="toggleStats" class="btn btn-sm btn-secondary"><i class="fas fa-chart-line"></i> Stats</div>
+
+    <!-- Polygon labels on hover -->
+    <div id="region-hover"></div>
+
+    <!-- FILTERS -->
+    <div class="filters-block">
+      <div id='menu'></div>
+      <form id='project-filters'>
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <select class="form-control" id="projectStatus">
+                <option>Any Project Status</option>
+                <option>Proposed</option>
+                <option>Underway</option>
+                <option>Complete</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <select class="form-control" id="projectType">
+                <option>Any Project Type</option>
+                <option>Priority Projects</option>
+                <option>Planning</option>
+                <option>Infrastructure</option>
+                <option>Marketing/Branding</option>
+                <option>New Development or Rehab</option>
+                <option>Public Improvement</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      <p><small><span class="legend-dot proposed"></span> Proposed <span class="legend-dot underway"></span> Underway <span class="legend-dot complete"></span> Complete</small></p>
+    </div>
+
+    <!-- FIGURES -->
+    <div class="figures-block">
+      <div class="row">
+        <div class="col-md-3">
+          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="cost"></div>
+          <p>Project cost</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="private"></div>
+          <p>Induced Private Investment</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="local"></div>
+          <p>Local Investment</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="grants"></div>
+          <p>Grant Funds</p>
+        </div>
+      </div>
+    </div><!-- /.figures-block -->
+
+    <!-- DRAWER -->
+  <div class="drawer">
+    <div class="pp"><i class="fas fa-arrow-circle-left"></i></div>
+    <div class="nn"><i class="fas fa-arrow-circle-right"></i></div>
+    <div class="col-md-12 text-center">
+      <button type="button" class="btn btn-sm btn-primary" id="drawer-toggle">Featured Projects</button>
+    </div>
+
+    <div class="drawer-content"></div>
+  </div>
+
+  <!-- Spinner -->
+  <div class="spinner">
+    <div class="sk-spinner sk-spinner-pulse"></div>
+  </div>
+
+    <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
+
+    <script src='js/regions.js'></script>
+    <script src='js/municipal_regions.js'></script>
+    <script src='js/lwrp_region.js'></script>
+    <script src='js/vr_layer.js'></script>
+    <script src='js/map.js'></script>
+    <script src='js/stats.js'></script>
+    <script src='js/drawer.js'></script>
+
+    <script>
+    function removeSpinner() {
+      $(document).find(".spinner").delay(2000).fadeOut(1000, function () {
+        $(this).remove();
+      });
+    };
+    removeSpinner();
+    </script>
+
+  </body>
+</html>

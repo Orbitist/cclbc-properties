@@ -1,0 +1,220 @@
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+
+.mapboxgl-popup {
+  z-index: 2;
+}
+
+.mapboxgl-popup-content {
+  padding: 0;
+}
+
+.small-map-label {
+  padding: 20px;
+}
+
+.mapboxgl-popup-close-button {
+  z-index: 9;
+  background-color: #eee;
+}
+.mapboxgl-popup-close-button:hover {
+  background-color: white;
+  opacity: 0.8;
+}
+
+.mapboxgl-popup-content {
+  width: 350px;
+}
+
+#menu {
+  margin: 10px 20px 20px 20px;
+}
+
+#menu a {
+    font-size: 12px;
+    color: #404040;
+    background-color: white;
+    padding: 10px;
+    text-decoration: none;
+    text-align: center;
+}
+
+#menu a:last-child {
+    border: none;
+}
+
+#menu a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+#menu a.active {
+    background-color: #3887be;
+    color: #ffffff;
+}
+
+#menu a.active:hover {
+    background: #3074a4;
+}
+
+.marker {
+  background-image: url('../img/orbitist-icon-blue.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#project-filters {
+  bottom: 31px;
+  left: 10px;
+  padding: 0 20px;
+  border-radius: 4px;
+}
+
+#project-filters .filter-button-container {
+  text-align: center;
+}
+
+#project-filters .filter-button-container button {
+  width: 100%;
+  margin-top: 34px;
+}
+
+.figures-block {
+  position: absolute;
+  bottom: 36px;
+  left: 5%;
+  background-color: rgba(0,0,0,0.6);
+  width: 90%;
+  text-align: center;
+  padding: 20px 20px 0;
+  color: white;
+  border-radius: 4px;
+  transition: all 0.5s ease;
+  z-index: 9;
+}
+
+.figure {
+  font-size: 26px;
+}
+
+.figures-block p {
+  font-weight: lighter;
+  font-size: 16px;
+}
+
+.filters-block {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 250px;
+  background-color: rgba(0,0,0,0.6);
+  color: white;
+  border-radius: 4px;
+  transition: all 0.5s ease;
+}
+
+#toggleFilters {
+  transition: all 0.5s ease;
+  position: absolute;
+  display: none;
+  top: 20px;
+  left:10px;
+  z-index: 2;
+}
+#toggleFilters.active {
+  left: 250px;
+}
+
+#toggleStats {
+  transition: all 0.5s ease;
+  position: absolute;
+  display: none;
+  bottom: 10px;
+  left: calc(50% - 30px);
+}
+#toggleStats.active {
+  bottom: 90%;
+}
+
+.vr-marker {
+    background-image: url(../img/vr-icon.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+iframe.vr {
+  height: 250px;
+  width: 100%;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+/* Hover Popups */
+.region-tooltip p {
+  margin-bottom: 0px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 0 5px 0 -10px;
+}
+.legend-dot.proposed {
+  background-color: #69D2E7;
+}
+.legend-dot.underway {
+  background-color: #E0E4CC;
+}
+.legend-dot.complete {
+  background-color: #FA6900;
+}
+
+.filters-block .legend-dot {
+  margin: 0 0 0 2px;
+}
+
+.filters-block p small {
+  padding-left: 20px;
+  font-size: 70%;
+}
+
+@media (max-width: 1020px) {
+  .figure {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .figures-block {
+    top: 100%;
+    bottom: 0;
+    background-color: black;
+  }
+  .figures-block.active {
+    top: 10%;
+  }
+
+  .filters-block {
+    left: -250px;
+    max-width: calc(100% - 20px;)
+  }
+  .filters-block.active {
+    left: 10px;
+  }
+
+  #toggleStats {
+    display: block;
+  }
+  #toggleFilters {
+    display: block;
+  }
+}

@@ -1,0 +1,134 @@
+.o-tile {
+  position: relative;
+  height: 100px;
+  width: 200px;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #eee;
+  overflow: hidden;
+  transition: all .3s ease;
+}
+
+.o-tile:hover {
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+.o-tile-img {
+  background-color: #eeeeee;
+  height: 98px;
+  width: 98px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+
+.o-tile-img img {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+a.o-tile-icon {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  font-size: 30px;
+  text-align: center;
+  width: 100%;
+  opacity: 0.5;
+  color: #eeeeee;
+  z-index: 0;
+}
+
+.o-tile-content {
+  position: absolute;
+  left: 105px;
+  top: 0;
+}
+
+.o-tile-content-info {
+  position: absolute;
+  top: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.o-tile-content-info a {
+  color: #333333;
+}
+
+.o-tile-content-title {
+  font-size: 17px;
+  font-weight: lighter;
+  padding: 2px 4px 0 0;
+}
+
+.o-tile-content-title a {
+  color: #555555;
+}
+
+/* Post tiles */
+.o-tile-img.Post {
+  background-color: #4ca4e4;
+}
+
+a.o-tile-icon.Post:before {
+  content: "\f1ea";
+  font-family: FontAwesome;
+}
+
+/* Page tiles */
+.o-tile-img.Page {
+  background-color: #4ca4e4;
+}
+
+a.o-tile-icon.Page:before {
+  content: "\f1ea";
+  font-family: FontAwesome;
+}
+
+/* Event tiles */
+.o-tile-img.Event {
+  background-color: #4c58e4;
+}
+
+a.o-tile-icon.Event:before {
+  content: "\f073";
+  font-family: FontAwesome;
+}
+
+/* Organization tiles */
+.o-tile-img.Organization {
+  background-color: #4ca4e4;
+}
+
+a.o-tile-icon.Organization:before {
+  content: "\f0c0";
+  font-family: FontAwesome;
+}
+
+/* Document tiles */
+.o-tile-img.Document {
+  background-color: #e44ca4;
+}
+
+a.o-tile-icon.Document:before {
+  content: "\f15b";
+  font-family: FontAwesome;
+}
+
+/* Point of interest tiles */
+.o-tile-img.Point_of_interest {
+  background-color: #e48c4c;
+}
+
+a.o-tile-icon.Point_of_interest:before {
+  content: "\f041";
+  font-family: FontAwesome;
+}

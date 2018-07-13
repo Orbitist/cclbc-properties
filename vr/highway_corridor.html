@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Orbitist VR</title>
+	<meta name="description" content="Orbitist VR">
+	<meta name="author" content="Orbitist">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="vr_css/panoramas.css">
+
+</head>
+<body>
+  <div class="fullscreen">
+    <!-- Google VR Viewer -->
+    <div id='vrview'></div>
+  </div>
+
+  <!-- Google VR Viewer JS -->
+  <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+
+	<script>
+		// Run VR once window is loaded
+    window.addEventListener('load', onVrViewLoad);
+
+		// Load VR
+    function onVrViewLoad() {
+
+      // Selector '#vrview' finds element with id 'vrview'.
+      var vrView = new VRView.Player('#vrview', {
+        image: 'vr_images/highway-corridor.jpg',
+        is_stereo: false,
+        width: '100%',
+        height: '100%'
+      });
+
+			// Load hotspots
+			// vrView.on('ready',function() {
+			//
+			// 	vrView.addHotspot('kayak-launch', {
+			// 	  pitch: -60, // In degrees. Up is positive.
+			// 	  yaw: 30, // In degrees. To the right is positive.
+			// 	  radius: 0.1, // Radius of the circular target in meters.
+			// 	  distance: 2 // Distance of target from camera in meters.
+			// 	});
+			// 	vrView.on('click', function(event) {
+			// 		if (event.id == 'kayak-launch') {
+			// 			console.log("kayak launch");
+			// 		}
+			// 	});
+			//
+			// 	vrView.addHotspot('welch-trail', {
+			// 		pitch: -30, // In degrees. Up is positive.
+			// 		yaw: -40, // In degrees. To the right is positive.
+			// 		radius: 0.1, // Radius of the circular target in meters.
+			// 		distance: 2 // Distance of target from camera in meters.
+			// 	});
+			// 	vrView.on('click', function(event) {
+			// 		if (event.id == 'welch-trail') {
+			// 			console.log("Welch Trail");
+			// 		}
+			// 	});
+			//
+			// });
+
+    }
+  </script>
+
+</body>
+</html>
