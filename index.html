@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
       <meta charset='utf-8' />
-      <title>Westfield Economic Development Projects</title>
+      <title>Chautauqua County Land Bank Properties</title>
       <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
       <script defer src="https://pro.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-d84LGg2pm9KhR4mCAs3N29GQ4OYNy+K+FBHX8WhimHpPm86c839++MDABegrZ3gn" crossorigin="anonymous"></script>
@@ -43,54 +43,51 @@
     <!-- FILTERS -->
     <div class="filters-block">
       <div id='menu'></div>
-      <form id='project-filters'>
+      <form id='property-filters'>
         <div class="form-row">
           <div class="col-md-12">
             <div class="form-group">
-              <select class="form-control" id="projectStatus">
-                <option>Any Project Status</option>
-                <option>Proposed</option>
-                <option>Underway</option>
-                <option>Complete</option>
+              <select class="form-control" id="propertyStatus">
+                <option>Any Property Status</option>
+                <option>Sale Pending</option>
+                <option>For Sale</option>
+                <option>Sold</option>
               </select>
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              <select class="form-control" id="projectType">
-                <option>Any Project Type</option>
-                <option>Priority Projects</option>
-                <option>Planning</option>
-                <option>Infrastructure</option>
-                <option>Marketing/Branding</option>
-                <option>New Development or Rehab</option>
-                <option>Public Improvement</option>
+              <select class="form-control" id="propertyCategory">
+                <option>Any Property Category</option>
+                <option>Rehab</option>
+                <option>Sidelot</option>
+                <option>Demolition</option>
               </select>
             </div>
           </div>
         </div>
       </form>
-      <p><small><span class="legend-dot proposed"></span> Proposed <span class="legend-dot underway"></span> Underway <span class="legend-dot complete"></span> Complete</small></p>
+      <p><small><span class="legend-dot rehab"></span> Rehab <span class="legend-dot sidelot"></span> Sidelot <span class="legend-dot demolition"></span> Demolition</small></p>
     </div>
 
     <!-- FIGURES -->
     <div class="figures-block">
       <div class="row">
         <div class="col-md-3">
-          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="cost"></div>
-          <p>Project cost</p>
+          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="totalProperties"></div>
+          <p>Properties Mitigated</p>
         </div>
         <div class="col-md-3">
-          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="private"></div>
-          <p>Induced Private Investment</p>
+          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="rehabilitations"></div>
+          <p>Rehabilitations</p>
         </div>
         <div class="col-md-3">
-          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="local"></div>
-          <p>Local Investment</p>
+          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="sidelots"></div>
+          <p>Side Lots</p>
         </div>
         <div class="col-md-3">
-          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="grants"></div>
-          <p>Grant Funds</p>
+          <i class="fas fa-dollar-sign"></i> <div class="figure odometer" id="demolitions"></div>
+          <p>Demolitions</p>
         </div>
       </div>
     </div><!-- /.figures-block -->
@@ -100,7 +97,7 @@
     <div class="pp"><i class="fas fa-arrow-circle-left"></i></div>
     <div class="nn"><i class="fas fa-arrow-circle-right"></i></div>
     <div class="col-md-12 text-center">
-      <button type="button" class="btn btn-sm btn-primary" id="drawer-toggle">Featured Projects</button>
+      <button type="button" class="btn btn-sm btn-primary" id="drawer-toggle">Featured Properties</button>
     </div>
 
     <div class="drawer-content"></div>

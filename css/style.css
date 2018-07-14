@@ -66,18 +66,18 @@ body { margin:0; padding:0; }
   cursor: pointer;
 }
 
-#project-filters {
+#property-filters {
   bottom: 31px;
   left: 10px;
   padding: 0 20px;
   border-radius: 4px;
 }
 
-#project-filters .filter-button-container {
+#property-filters .filter-button-container {
   text-align: center;
 }
 
-#project-filters .filter-button-container button {
+#property-filters .filter-button-container button {
   width: 100%;
   margin-top: 34px;
 }
@@ -168,13 +168,13 @@ iframe.vr {
   display: inline-block;
   margin: 0 5px 0 -10px;
 }
-.legend-dot.proposed {
+.legend-dot.rehab {
   background-color: #69D2E7;
 }
-.legend-dot.underway {
+.legend-dot.sidelot {
   background-color: #E0E4CC;
 }
-.legend-dot.complete {
+.legend-dot.demolition {
   background-color: #FA6900;
 }
 

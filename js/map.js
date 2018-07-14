@@ -1,16 +1,16 @@
-mapboxgl.accessToken = 'pk.eyJ1Ijoid2VzdGZpZWxkbnkiLCJhIjoiY2pjeGxqcjhiMGljYzMzbzE0eXB6Z3ozYiJ9.VEtcYyEyNf1N2huTqRXElQ';
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2NsYiIsImEiOiJjaXVpN2kyaDIwMHN3MnRydXY2ZGpxN2tiIn0.2DjZvLsMgvMhV1-OLA3gCA';
 
 var bounds = [
-    [-80.098094, 41.808723], // Southwest coordinates
-    [-78.803060, 42.664566]  // Northeast coordinates
+    [-80.821254, 41.429270], // Southwest coordinates
+    [-77.429440, 42.664566]  // Northeast coordinates
 ];
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/westfieldny/cjcxob2e71c352smnmnuscxbn',
-    center: [-79.585621, 42.329138],
-    zoom: 13,
-    minZoom: 10,
+    style: 'mapbox://styles/cclb/cjjkrpvhm2va62slnrs87mkqy',
+    center: [-79.294445, 42.287382],
+    zoom: 9.5,
+    minZoom: 5,
     maxBounds: bounds
 });
 
@@ -19,67 +19,16 @@ map.addControl(new mapboxgl.NavigationControl());
 
 map.on('load', function () {
 
-  // Municipal Regions
-  map.addLayer({
-      'id': 'municipalRegions',
-      'type': 'line',
-      'source': {
-          'type': 'geojson',
-          'data': municipalRegions
-      },
-      'layout': {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      'paint': {
-        "line-color": ['get', 'color'],
-        "line-width": 6,
-        "line-opacity": 0.8
-      }
-  });
-
-  // LWRP Region
-  map.addLayer({
-      'id': 'lwrpRegion',
-      'type': 'fill',
-      'source': {
-          'type': 'geojson',
-          'data': lwrpRegion
-      },
-      'layout': {},
-      'paint': {
-          'fill-color': ['get', 'color'],
-          'fill-opacity': 0.4
-      }
-  });
-  toggleLayer('lwrpRegion');
-
-  // REGIONS
-  map.addLayer({
-      'id': 'driRegions',
-      'type': 'fill',
-      'source': {
-          'type': 'geojson',
-          'data': regionsData
-      },
-      'layout': {},
-      'paint': {
-          'fill-color': ['get', 'color'],
-          'fill-opacity': 0.4
-      }
-  });
-  toggleLayer('driRegions');
-
   // Mouse hoverover popups on features
   map.on("mousemove", function (e) {
       var features = map.queryRenderedFeatures(e.point, {
-          layers: ["driRegions", "lwrpRegion", "municipalRegions", "projects", "organizations", "points"]
+          layers: ["properties"]
       });
 
       if (features.length && features[0].properties.title) {
           document.getElementById('region-hover').innerHTML = "<div class='region-tooltip' style='z-index:1;padding:10px 20px;border-radius:4px;background-color:" + features[0].properties.color + ";left:" + (e.point.x + 15) + "px;top:" + (e.point.y - 50) + "px;position:absolute;'>" + features[0].properties.title + "</div>";
-      } else if (features.length && features[0].properties.type) {
-        document.getElementById('region-hover').innerHTML = "<div class='region-tooltip' style='z-index:1;padding:10px 20px;border-radius:4px;background-color:white;left:" + (e.point.x + 15) + "px;top:" + (e.point.y - 50) + "px;position:absolute;'><p><small><span class='legend-dot " + features[0].properties.status.replace(/\s+/g, '-').toLowerCase() + "' ></span>" + features[0].properties.status + "</small></p>" + features[0].properties.name + "</div>";
+      } else if (features.length && features[0].properties.category) {
+        document.getElementById('region-hover').innerHTML = "<div class='region-tooltip' style='z-index:1;padding:10px 20px;border-radius:4px;background-color:white;left:" + (e.point.x + 15) + "px;top:" + (e.point.y - 50) + "px;position:absolute;'><p><small><span class='legend-dot " + features[0].properties.category.replace(/\s+/g, '-').toLowerCase() + "' ></span>" + features[0].properties.category + "</small></p>" + features[0].properties.name + "</div>";
       } else if (features.length && features[0].properties.name) {
         document.getElementById('region-hover').innerHTML = "<div class='region-tooltip' style='z-index:1;padding:10px 20px;border-radius:4px;background-color:white;left:" + (e.point.x + 15) + "px;top:" + (e.point.y - 50) + "px;position:absolute;'>" + features[0].properties.name + "</div>";
       } else {
@@ -88,140 +37,55 @@ map.on('load', function () {
       }
   });
 
-  // PROJECTS
-  map.addSource("projects", {
+  // PROPERTIES
+  map.addSource("properties", {
     "type": "geojson",
-    "data": "https://westfieldny.com/api/geojson/projects"
+    "data": "https://chqlandbank.org/api/geojson/properties"
   });
   map.addLayer({
-    "id": "projects",
+    "id": "properties",
     "type": "circle",
-    "source": "projects",
+    "source": "properties",
     "paint": {
       "circle-radius": 10,
       "circle-stroke-width": 2,
       "circle-stroke-color": "#ffffff",
       "circle-color": [
         'match',
-        ['get', 'status'],
-        'Proposed', '#69D2E7',
-        'Underway', '#E0E4CC',
-        'Complete', '#FA6900',
+        ['get', 'category'],
+        'Rehab', '#69D2E7',
+        'Sidelot', '#E0E4CC',
+        'Demolition', '#FA6900',
         /* other */ '#ccc'
       ],
       "circle-opacity": 1
     }
    });
-   map.on('click', 'projects', function (e) {
-     var projectUrl = 'https://westfieldny.com' + e.features[0].properties.path;
+   map.on('click', 'properties', function (e) {
+     var propertyUrl = 'https://chqlandbank.org' + e.features[0].properties.path;
      if (e.features[0].properties.image.length > 5) {
-       var projectImg = '<img src="https://westfieldny.com' + e.features[0].properties.image + '" alt="' + e.features[0].properties.name + '" class="card-img-top">';
+       var propertyImg = '<img src="https://chqlandbank.org' + e.features[0].properties.image + '" alt="' + e.features[0].properties.name + '" class="card-img-top">';
      } else {
-       projectImg = '';
+       propertyImg = '';
      }
-     var projectInfo = e.features[0].properties.status + ', ' + e.features[0].properties.type;
-     var projectLabel = e.features[0].properties.name;
+     var propertyInfo = e.features[0].properties.status + ', ' + e.features[0].properties.category;
+     var propertyLabel = e.features[0].properties.name;
      new mapboxgl.Popup()
          .setLngLat(e.lngLat)
-         .setHTML('<div class="card"><a href="' + projectUrl + '" target="_parent">' + projectImg + '</a><div class="card-body"><a href="' + projectUrl + '" target="_parent"><p class="lead card-title">' + projectLabel + '</p></a><p class="card-text">' + projectInfo + '</p></div></div>')
+         .setHTML('<div class="card"><a href="' + propertyUrl + '" target="_blank">' + propertyImg + '</a><div class="card-body"><a href="' + propertyUrl + '" target="_blank"><p class="lead card-title">' + propertyLabel + '</p></a><p class="card-text">' + propertyInfo + '</p></div></div>')
          .addTo(map);
    });
-   map.on('mouseenter', 'projects', function () {
+   map.on('mouseenter', 'properties', function () {
        map.getCanvas().style.cursor = 'pointer';
    });
-   map.on('mouseleave', 'projects', function () {
+   map.on('mouseleave', 'properties', function () {
        map.getCanvas().style.cursor = '';
    });
 
-   // VR LAYER
-   // vrLayer.features.forEach(function(marker) {
-   //   // create a HTML element for each feature
-   //   var el = document.createElement('div');
-   //   el.className = 'vr-marker';
-   //   // make a marker for each feature and add to the map
-   //   new mapboxgl.Marker(el)
-   //   .setLngLat(marker.geometry.coordinates)
-   //   .setPopup(new mapboxgl.Popup({ offset: 10, closeButton: false }) // add popups
-   //   .setHTML(marker.properties.content))
-   //   .addTo(map);
-   // });
-
-   // FEATURED BUSINESSES
-   map.addSource("organizations", {
-     "type": "geojson",
-     "data": "https://westfieldny.com/api/geojson/featured_organizations"
-   });
-   map.addLayer({
-     "id": "organizations",
-     "type": "symbol",
-     "source": "organizations",
-     "layout": {
-            "icon-image": "suitcase-15",
-            "icon-allow-overlap": true
-          }
-    });
-    toggleLayer('organizations');
-    map.on('click', 'organizations', function (e) {
-      var projectUrl = 'https://westfieldny.com' + e.features[0].properties.path;
-      if (e.features[0].properties.image.length > 5) {
-        var projectImg = '<img src="https://westfieldny.com' + e.features[0].properties.image + '" alt="' + e.features[0].properties.name + '" class="card-img-top">';
-      } else {
-        var projectImg = '';
-      }
-      var projectInfo = e.features[0].properties.categories;
-      var projectLabel = e.features[0].properties.name;
-      new mapboxgl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML('<div class="card"><a href="' + projectUrl + '" target="_parent">' + projectImg + '</a><div class="card-body"><a href="' + projectUrl + '" target="_parent"><p class="lead card-title">' + projectLabel + '</p></a><p class="card-text">' + projectInfo + '</p></div></div>')
-          .addTo(map);
-    });
-    map.on('mouseenter', 'organizations', function () {
-        map.getCanvas().style.cursor = 'pointer';
-    });
-    map.on('mouseleave', 'organizations', function () {
-        map.getCanvas().style.cursor = '';
-    });
-
-    // FEATURED POINTS
-    map.addSource("points", {
-      "type": "geojson",
-      "data": "https://westfieldny.com/api/geojson/featured_points"
-    });
-    map.addLayer({
-      "id": "points",
-      "type": "symbol",
-      "source": "points",
-      "layout": {
-        "icon-image": "map-marker-15",
-        "icon-allow-overlap": true
-      }
-     });
-     toggleLayer('points');
-     map.on('click', 'points', function (e) {
-       var projectUrl = 'https://westfieldny.com' + e.features[0].properties.path;
-       if (e.features[0].properties.image.length > 5) {
-         var projectImg = '<img src="https://westfieldny.com' + e.features[0].properties.image + '" alt="' + e.features[0].properties.name + '" class="card-img-top">';
-       } else {
-         var projectImg = '';
-       }
-       var projectInfo = e.features[0].properties.categories;
-       var projectLabel = e.features[0].properties.name;
-       new mapboxgl.Popup()
-           .setLngLat(e.lngLat)
-           .setHTML('<div class="card"><a href="' + projectUrl + '" target="_parent">' + projectImg + '</a><div class="card-body"><a href="' + projectUrl + '" target="_parent"><p class="lead card-title">' + projectLabel + '</p></a><p class="card-text">' + projectInfo + '</p></div></div>')
-           .addTo(map);
-     });
-     map.on('mouseenter', 'points', function () {
-         map.getCanvas().style.cursor = 'pointer';
-     });
-     map.on('mouseleave', 'points', function () {
-         map.getCanvas().style.cursor = '';
-     });
-
-});
+ }); //map.on load function end
 
 // TOGGLERS
-var toggleableLayers = [{label:'Projects', id:'projects', defaultState:'checked'},{label:'Municipal Boundaries', id:'municipalRegions', defaultState:'checked'},{label:'DRI Boundary Area', id:'driRegions', defaultState:''}, {label:'LWRP Boundary Area', id:'lwrpRegion', defaultState:''}, {label:'Featured Businesses', id:'organizations', defaultState:''}, {label:'Points of Interest', id:'points', defaultState:''}];
+var toggleableLayers = [{label:'Properties', id:'properties', defaultState:'checked'}];
 
 function toggleLayer(layerId) {
   var clickedLayer = layerId;
@@ -248,50 +112,42 @@ for (var i = 0; i < toggleableLayers.length; i++) {
 }
 
 // FILTER FUNCTIONALITY
-var formProjectStatus = 'Any Project Status';
-var formProjectType = 'Any Project Type';
-var statusFilter = ["==", 'status', formProjectStatus];
-var typeFilter = ["==", 'type', formProjectType];
+var formPropertyStatus = 'Any Property Status';
+var formPropertyCategory = 'Any Property Category';
+var statusFilter = ["==", 'status', formPropertyStatus];
+var categoryFilter = ["==", 'category', formPropertyCategory];
 
-var projectsFilterParams;
+var propertyFilterParams;
 
-function buildProjectsFilter() {
-  if (formProjectStatus == 'Any Project Status' && formProjectType == 'Priority Projects') {
-    projectsFilterParams = ["all", ["==", 'featured', 'True']];
-  } else if (formProjectStatus != 'Any Project Status' && formProjectType == 'Priority Projects') {
-    projectsFilterParams = ["all", statusFilter, ["==", 'featured', 'True']];
-  } else if (formProjectStatus == 'Any Project Status' && formProjectType !== 'Any Project Type') {
-    projectsFilterParams = ["all", typeFilter];
-  } else if (formProjectStatus !== 'Any Project Status' && formProjectType == 'Any Project Type') {
-    projectsFilterParams = ["all", statusFilter];
+function buildPropertiesFilter() {
+  if (formPropertyStatus == 'Any Property Status' && formPropertyCategory !== 'Any Property Category') {
+    propertiesFilterParams = ["all", categoryFilter];
+  } else if (formPropertyStatus !== 'Any Property Status' && formPropertyCategory == 'Any Property Category') {
+    propertiesFilterParams = ["all", statusFilter];
   } else {
-    projectsFilterParams = ["all", statusFilter, typeFilter];
+    propertiesFilterParams = ["all", statusFilter, categoryFilter];
   }
 }
 
-$('#projectStatus').change(function () {
-  formProjectStatus = $(this).find("option:selected").val();
-  statusFilter = ["==", 'status', formProjectStatus];
-  buildProjectsFilter();
-  if (formProjectStatus == 'Any Project Status' && formProjectType == 'Any Project Type'){
-    map.setFilter('projects');
-    runStats();
+$('#propertyStatus').change(function () {
+  formPropertyStatus = $(this).find("option:selected").val();
+  statusFilter = ["==", 'status', formPropertyStatus];
+  buildPropertiesFilter();
+  if (formPropertyStatus == 'Any Property Status' && formPropertyCategory == 'Any Property Category'){
+    map.setFilter('properties');
   } else {
-    map.setFilter('projects', projectsFilterParams);
-    runStats();
+    map.setFilter('properties', propertiesFilterParams);
   }
 });
 
-$('#projectType').change(function () {
-  formProjectType = $(this).find("option:selected").val();
-  typeFilter = ["==", 'type', formProjectType];
-  buildProjectsFilter();
-  if (formProjectStatus == 'Any Project Status' && formProjectType == 'Any Project Type'){
-    map.setFilter('projects');
-    runStats();
+$('#propertyCategory').change(function () {
+  formPropertyCategory = $(this).find("option:selected").val();
+  categoryFilter = ["==", 'category', formPropertyCategory];
+  buildPropertiesFilter();
+  if (formPropertyStatus == 'Any Property Status' && formPropertyCategory == 'Any Property Category'){
+    map.setFilter('properties');
   } else {
-    map.setFilter('projects', projectsFilterParams);
-    runStats();
+    map.setFilter('properties', propertiesFilterParams);
   }
 });
 
