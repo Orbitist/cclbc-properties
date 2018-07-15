@@ -119,7 +119,7 @@ map.on('load', function () {
  }); //map.on load function end
 
 // TOGGLERS
-var toggleableLayers = [{label:'Properties', id:'properties', defaultState:'checked'}, {label:'CZB Community Survey', id:'czb', defaultState:''}];
+var toggleableLayers = [{label:'Properties', id:'properties', defaultState:'checked'}, {label:'Property Surveys', id:'czb', defaultState:''}];
 
 function toggleLayer(layerId) {
   var clickedLayer = layerId;
