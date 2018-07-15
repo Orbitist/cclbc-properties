@@ -37,6 +37,31 @@ map.on('load', function () {
       }
   });
 
+  // CZB
+  map.addSource("czb", {
+    "type": "geojson",
+    "data": "data/czb_jamestown_2016_points.geojson"
+  });
+  map.addLayer({
+    "id": "czb",
+    "type": "circle",
+    "source": "czb",
+    "paint": {
+      "circle-radius": 10,
+      "circle-stroke-width": 2,
+      "circle-stroke-color": "#ffffff",
+      "circle-color": [
+        'match',
+        ['get', 'CZB Jame_1'],
+        '1', '#69D2E7',
+        '2', '#E0E4CC',
+        '3', '#FA6900',
+        /* other */ '#ccc'
+      ],
+      "circle-opacity": 1
+    }
+   });
+
   // PROPERTIES
   map.addSource("properties", {
     "type": "geojson",
@@ -81,6 +106,8 @@ map.on('load', function () {
    map.on('mouseleave', 'properties', function () {
        map.getCanvas().style.cursor = '';
    });
+
+
 
  }); //map.on load function end
 
