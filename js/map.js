@@ -53,9 +53,12 @@ map.on('load', function () {
       "circle-color": [
         'match',
         ['get', 'CZB Jame_1'],
-        '1', '#69D2E7',
-        '2', '#E0E4CC',
-        '3', '#FA6900',
+        1, '#8b0000',
+        2, '#c0223b',
+        3, '#e75758',
+        4, '#fe906a',
+        5, '#ffcb91',
+        6, '#ffffe0',
         /* other */ '#ccc'
       ],
       "circle-opacity": 1
