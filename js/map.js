@@ -40,30 +40,36 @@ map.on('load', function () {
   // CZB
   map.addSource("czb", {
     "type": "geojson",
-    "data": "data/czb_jamestown_2016_points.geojson"
+    "data": czbData
   });
   map.addLayer({
     "id": "czb",
     "type": "circle",
     "source": "czb",
     "paint": {
-      "circle-radius": 10,
-      "circle-stroke-width": 2,
+      "circle-radius": {
+        stops: [
+         [5, 1],
+         [15, 6],
+         [20, 40]
+        ]
+      },
       "circle-stroke-color": "#ffffff",
       "circle-color": [
         'match',
         ['get', 'CZB Jame_1'],
-        1, '#8b0000',
-        2, '#c0223b',
-        3, '#e75758',
-        4, '#fe906a',
-        5, '#ffcb91',
-        6, '#ffffe0',
+        6, '#d73027',
+        5, '#fc8d59',
+        4, '#fee08b',
+        3, '#d9ef8b',
+        2, '#91cf60',
+        1, '#1a9850',
         /* other */ '#ccc'
       ],
-      "circle-opacity": 1
+      "circle-opacity": 0.8
     }
    });
+   toggleLayer('czb');
 
   // PROPERTIES
   map.addSource("properties", {
@@ -110,12 +116,10 @@ map.on('load', function () {
        map.getCanvas().style.cursor = '';
    });
 
-
-
  }); //map.on load function end
 
 // TOGGLERS
-var toggleableLayers = [{label:'Properties', id:'properties', defaultState:'checked'}];
+var toggleableLayers = [{label:'Properties', id:'properties', defaultState:'checked'}, {label:'CZB Community Survey', id:'czb', defaultState:''}];
 
 function toggleLayer(layerId) {
   var clickedLayer = layerId;

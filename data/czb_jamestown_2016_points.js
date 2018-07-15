@@ -1,4 +1,4 @@
-{
+var czbData = {
 "type": "FeatureCollection",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
@@ -9121,4 +9121,4 @@
 { "type": "Feature", "properties": { "PRKEY": "387.32-1-51", "CZB Jamest": "714 Lafayette, Jamestown, NY", "CZB Jame_1": 2 }, "geometry": { "type": "Point", "coordinates": [ -79.24571211875417, 42.099895409213616 ] } },
 { "type": "Feature", "properties": { "PRKEY": "404.05-1-29", "CZB Jamest": "9 Timber, Jamestown, NY", "CZB Jame_1": 1 }, "geometry": { "type": "Point", "coordinates": [ -79.251286185581307, 42.077734477023824 ] } }
 ]
-}
+};
